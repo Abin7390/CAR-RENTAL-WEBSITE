@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Bookings</title>
+    <style>
+        /* Add your styles here */
+        /* This is just a basic structure, you can enhance the styling as per your design */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        #navbar {
+			  display: flex;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #008fb7;
+            color: white;
+            padding: 20px 0;
+        }
+        
+          
+		 #nav1 {
+		    width: 50%;
+		    font-size: 25px;
+		    padding-left: 50px;
+		    display: flex;
+		    align-items: center;
+		}
+
+        #nav2 {
+            width: 100%;
+            display: flex;
+            justify-content: right;
+        }
+
+        .nav-link {
+            color: rgb(0, 0, 0);
+            text-transform: capitalize;
+            font-weight:bolder;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 18px;
+            margin: 0 20px;
+        }
+
+        .container {
+            width: 80%;
+            margin: 70px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        table th {
+            background-color: #333;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+	<div id="navbar">
+        	<div id="nav1">CAR RENTALS</div>
+            <div id="nav2">
+				 <a class="nav-link" href="Front.html">home</a>
+             <a class="nav-link" href="/logout">LOGOUT</a>
+            </div>
+        </div>
+    <div class="container">
+        <h1>Car Bookings</h1>
+        <table>
+            <tr>
+				
+                <th>USERNAME</th>
+                <th>BOOKING ID</th>
+                <th>CAR ID</th>
+                <th>CAR NUMBER</th>
+                <th>FROM Date</th>
+                <th>TO Date</th>
+                <th>PRICE PER DAY</th>
+                <th>Amount Payable</th>
+            </tr>
+            <!-- Replace this part with data retrieved dynamically from the backend -->
+            <tr th:each="car:${carbooking}">
+                 <td th:text="${car.username}"></td>
+                 <td th:text="${car.bookingid}"></td>
+                 <td th:text="${car.carsid}"></td>
+                 <td th:text="${car.carnumber}"></td>
+                 <td th:text="${car.fromDate}"></td>
+                 <td th:text="${car.toDate}"></td>
+                 <td th:text="${car.priceperday}"></td>
+                 <td th:text="${car.amount}"></td>
+          
+            </tr>
+           
+        </table>
+    </div>
+</body>
+</html>

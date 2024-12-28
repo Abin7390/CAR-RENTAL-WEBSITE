@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rent Car Form</title>
+     <style>
+        /* CSS styles */
+       body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+          #navbar {
+			  display: flex;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #008fb7;
+            color: white;
+            padding: 20px 0;
+        }
+        
+           
+		 #nav1 {
+		    width: 50%;
+		    font-size: 25px;
+		    padding-left: 50px;
+		    display: flex;
+		    align-items: center;
+		}
+
+        #nav2 {
+            width: 100%;
+            display: flex;
+            justify-content: right;
+        }
+
+        .nav-link {
+            color: rgb(0, 0, 0);
+            text-transform: capitalize;
+            font-weight:bolder;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 18px;
+            margin: 0 20px;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: darkred;
+        }
+
+        form {
+            width: 50%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .ads {
+			justify-content: center;
+			
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #008fb7;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+		<div id="navbar">
+        	<div id="nav1">CAR RENTALS</div>
+            <div id="nav2">
+				 <a class="nav-link" href="Front.html">home</a>
+             <a class="nav-link" href="/logout">LOGOUT</a>
+            </div>
+        </div>
+    <h1>Rent a Car</h1>
+    <h2>PICKUP LOCATION: CARS RENTALS, KAKKANAD</h2>
+    <form th:action="@{/book}" method="post">
+		<div class="ads">
+        <label for="username">USERNAME:</label>
+        <input type="text" id="username" name="username" required th:value="${username}" readonly>
+        <br><br>
+
+        <label for="carnumber">CAR NUMBER:</label>
+        <input type="text" id="carnumber" name="carnumber" required th:value="${param.carnumber}" readonly>
+        <br><br>
+
+        <label for="fromDate">FROM DATE:</label>
+        <input type="date" id="fromDate" name="fromDate" required onchange="calculateAmount()">
+        <br><br>
+
+        <label for="toDate">TO DATE:</label>
+        <input type="date" id="toDate" name="toDate" required onchange="calculateAmount()">
+        <br><br>
+        
+
+        <input type="text" id="priceperday" name="priceperday" th:value="${param.priceperday}" hidden> <!-- Hidden input for pricePerDay -->
+
+        <label for="amount">Amount Payable:</label>
+        <input type="text" id="amount" name="amount" readonly>
+        <br><br>
+        </div>
+        
+        <label for="amount"></label>
+        <input type="text" id="status" name="status" th:value="${param.status}" hidden>
+       
+        
+        
+        <label for="carsid"></label>
+        <input type="text" id="carsid" name="carsid" th:value="${param.carsid}" hidden>
+       
+
+        <input type="submit" value="Submit">
+    </form>
+
+    <script>
+        function calculateAmount() {
+            const fromDate = new Date(document.getElementById('fromDate').value);
+            const toDate = new Date(document.getElementById('toDate').value);
+
+            const timeDiff = Math.abs(toDate - fromDate);
+            const diffDays = Math.ceil(timeDiff / (1000 * 60 * 60 * 24)); // Calculate difference in days
+
+            // Retrieve price per day from the hidden input
+            const pricePerday = document.getElementById('priceperday').value;
+            // Calculate the total amount payable based on the number of days
+            const amountPayable = diffDays * pricePerday;
+         
+            document.getElementById('amount').value = amountPayable; // Display the amount payable
+            
+            //status change
+            const form = document.querySelector('form');
+    form.addEventListener('submit', function(event) {
+        // Prevent the default form submission for now
+        event.preventDefault();
+
+        // Update the 'status' input field to "currently unavailable"
+        document.getElementById('status').value = 'currently unavailable';
+
+        // Now, allow the form to submit
+        form.submit();
+    });
+        }
+    </script>
+</body>
+</html>
